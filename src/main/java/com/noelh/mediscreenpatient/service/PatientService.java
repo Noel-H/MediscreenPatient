@@ -71,8 +71,12 @@ public class PatientService {
      * @param id is the id of the patient
      * @return the deleted patient
      */
-    public Patient deletePatient(Long id){
-        Patient patient = getPatientById(id);
+    public Patient deletePatient(Long id) throws EntityNotFoundException {
+        Patient patientToDelete = getPatientById(id);
+        Patient patient = new Patient();
+        patient.setId(patientToDelete.getId());
+        patient.setLastName(patientToDelete.getLastName());
+        patient.setFirstName(patientToDelete.getFirstName());
         patientRepository.deleteById(id);
         return patient;
     }
