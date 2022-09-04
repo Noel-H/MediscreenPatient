@@ -1,5 +1,6 @@
 package com.noelh.mediscreenpatient.controller;
 
+import com.noelh.mediscreenpatient.dto.PatientDTO;
 import com.noelh.mediscreenpatient.model.Patient;
 import com.noelh.mediscreenpatient.service.PatientService;
 import lombok.extern.slf4j.Slf4j;
@@ -22,7 +23,7 @@ public class PatientController {
 
     @GetMapping("")
     public List<Patient> getPatientList(){
-        log.info("GET /");
+        log.info("GET /patient");
         return patientService.getPatientList();
     }
 
@@ -33,6 +34,23 @@ public class PatientController {
             return ResponseEntity.ok(patientService.getPatientById(id));
         } catch (EntityNotFoundException e) {
             log.error("GET /patient/{} | [ERROR] : {}", id, e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("")
+    public ResponseEntity<Patient> postPatient(@RequestBody PatientDTO patientDTO){
+        log.info("POST /patient : {} {}",patientDTO.getLastName(), patientDTO.getFirstName());
+        return ResponseEntity.ok(patientService.addPatient(patientDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Patient> putPatientById(@PathVariable("id") Long id,@RequestBody PatientDTO patientDTO){
+        log.info("PUT /patient/{}", id);
+        try {
+            return ResponseEntity.ok(patientService.updatePatient(id, patientDTO));
+        } catch (EntityNotFoundException e) {
+            log.error("PUT /patient/{} | [ERROR] : {}", id, e.getMessage());
             return ResponseEntity.notFound().build();
         }
     }
