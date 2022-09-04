@@ -35,10 +35,8 @@ public class PatientService {
      * @return the wanted patient
      */
     public Patient getPatientById(Long id){
-        if (!patientRepository.existsById(id)){
-            throw new EntityNotFoundException("Id not found : " +id);
-        }
-        return patientRepository.getReferenceById(id);
+        return patientRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Id not found : " + id));
     }
 
     /**

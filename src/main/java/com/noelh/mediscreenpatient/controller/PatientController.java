@@ -26,8 +26,19 @@ public class PatientController {
         return patientService.getPatientList();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id){
+        log.info("GET /patient/{}", id);
+        try {
+            return ResponseEntity.ok(patientService.getPatientById(id));
+        } catch (EntityNotFoundException e) {
+            log.error("GET /patient/{} | [ERROR] : {}", id, e.getMessage());
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Patient> deletePatient(@PathVariable("id") Long id){
+    public ResponseEntity<Patient> deletePatientById(@PathVariable("id") Long id){
         log.info("DELETE /patient/{}", id);
         try {
             return ResponseEntity.ok(patientService.deletePatient(id));
