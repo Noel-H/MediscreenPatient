@@ -46,8 +46,12 @@ public class PatientService {
      */
     public Patient addPatient(PatientDTO patientDTO){
         Patient patient = new Patient();
-        patient.setLastName(patientDTO.lastName);
-        patient.setFirstName(patientDTO.firstName);
+        patient.setLastName(patientDTO.getLastName());
+        patient.setFirstName(patientDTO.getFirstName());
+        patient.setDateOfBirth(patientDTO.getDateOfBirth());
+        patient.setSex(patientDTO.getSex());
+        patient.setHomeAddress(patientDTO.getHomeAddress());
+        patient.setPhoneNumber(patientDTO.getPhoneNumber());
         return patientRepository.save(patient);
     }
 
@@ -59,8 +63,12 @@ public class PatientService {
      */
     public Patient updatePatient(Long id, PatientDTO patientDTO){
         Patient patient = getPatientById(id);
-        patient.setLastName(patientDTO.lastName == null ? patient.getLastName() : patientDTO.lastName);
-        patient.setFirstName(patientDTO.firstName == null ? patient.getFirstName() : patientDTO.firstName);
+        patient.setLastName(patientDTO.getLastName() == null ? patient.getLastName() : patientDTO.getLastName());
+        patient.setFirstName(patientDTO.getFirstName() == null ? patient.getFirstName() : patientDTO.getFirstName());
+        patient.setDateOfBirth(patientDTO.getDateOfBirth() == null ? patient.getDateOfBirth() : patientDTO.getDateOfBirth());
+        patient.setSex(patientDTO.getSex() == null ? patient.getSex() : patientDTO.getSex());
+        patient.setHomeAddress(patientDTO.getHomeAddress() == null ? patient.getHomeAddress() : patientDTO.getHomeAddress());
+        patient.setPhoneNumber(patientDTO.getPhoneNumber() == null ? patient.getPhoneNumber() : patientDTO.getPhoneNumber());
         return patientRepository.save(patient);
     }
 
@@ -75,6 +83,10 @@ public class PatientService {
         patient.setId(patientToDelete.getId());
         patient.setLastName(patientToDelete.getLastName());
         patient.setFirstName(patientToDelete.getFirstName());
+        patient.setDateOfBirth(patientToDelete.getDateOfBirth());
+        patient.setSex(patientToDelete.getSex());
+        patient.setHomeAddress(patientToDelete.getHomeAddress());
+        patient.setPhoneNumber(patientToDelete.getPhoneNumber());
         patientRepository.deleteById(id);
         return patient;
     }
