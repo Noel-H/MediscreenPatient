@@ -2,6 +2,7 @@ package com.noelh.mediscreenpatient.service;
 
 import com.noelh.mediscreenpatient.dto.PatientDTO;
 import com.noelh.mediscreenpatient.model.Patient;
+import com.noelh.mediscreenpatient.proxies.MediscreenNoteProxy;
 import com.noelh.mediscreenpatient.repository.PatientRepository;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,11 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final MediscreenNoteProxy mediscreenNoteProxy;
 
-    public PatientService(PatientRepository patientRepository){
+    public PatientService(PatientRepository patientRepository, MediscreenNoteProxy mediscreenNoteProxy){
         this.patientRepository = patientRepository;
+        this.mediscreenNoteProxy = mediscreenNoteProxy;
     }
 
     /**
@@ -88,6 +91,7 @@ public class PatientService {
         patient.setHomeAddress(patientToDelete.getHomeAddress());
         patient.setPhoneNumber(patientToDelete.getPhoneNumber());
         patientRepository.deleteById(id);
+        mediscreenNoteProxy.deleteNoteBeanByPatientId(patient.getId());
         return patient;
     }
 }
