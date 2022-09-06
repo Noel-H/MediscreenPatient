@@ -27,6 +27,12 @@ public class PatientController {
         return patientService.getPatientList();
     }
 
+    @GetMapping("/check/{id}")
+    public Boolean checkIfPatientIdExist(@PathVariable("id") Long id){
+        log.info("GET /patient/check/{}", id);
+        return patientService.isIdExist(id);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id){
         log.info("GET /patient/{}", id);

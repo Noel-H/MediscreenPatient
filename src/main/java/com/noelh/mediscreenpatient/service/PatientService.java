@@ -94,4 +94,8 @@ public class PatientService {
         mediscreenNoteProxy.deleteNoteBeanByPatientId(patient.getId());
         return patient;
     }
+
+    public Boolean isIdExist(Long id) {
+        return patientRepository.findById(id).isPresent();
+    }
 }
