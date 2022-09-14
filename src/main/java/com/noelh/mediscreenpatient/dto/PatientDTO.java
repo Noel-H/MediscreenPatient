@@ -1,5 +1,6 @@
 package com.noelh.mediscreenpatient.dto;
 
+import com.noelh.mediscreenpatient.enumeration.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,7 +21,7 @@ public class PatientDTO {
 
     private LocalDate dateOfBirth;
 
-    private Character sex;
+    private Gender sex;
 
     private String homeAddress;
 

@@ -1,5 +1,6 @@
 package com.noelh.mediscreenpatient.model;
 
+import com.noelh.mediscreenpatient.enumeration.Gender;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -25,7 +26,7 @@ public class Patient {
 
     private LocalDate dateOfBirth;
 
-    private Character sex;
+    private Gender sex;
 
     private String homeAddress;
 
