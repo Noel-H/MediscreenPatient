@@ -90,8 +90,8 @@ public class PatientService {
         patient.setSex(patientToDelete.getSex());
         patient.setHomeAddress(patientToDelete.getHomeAddress());
         patient.setPhoneNumber(patientToDelete.getPhoneNumber());
-        patientRepository.deleteById(id);
         mediscreenNoteProxy.deleteNoteBeanByPatientId(patient.getId());
+        patientRepository.deleteById(id);
         return patient;
     }
 
