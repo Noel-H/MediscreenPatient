@@ -18,6 +18,11 @@ public class PatientService {
     private final PatientRepository patientRepository;
     private final MediscreenNoteProxy mediscreenNoteProxy;
 
+    /**
+     * Patient service constructor
+     * @param patientRepository is the patient repository
+     * @param mediscreenNoteProxy is a proxy to the note api
+     */
     public PatientService(PatientRepository patientRepository, MediscreenNoteProxy mediscreenNoteProxy){
         this.patientRepository = patientRepository;
         this.mediscreenNoteProxy = mediscreenNoteProxy;
@@ -25,7 +30,6 @@ public class PatientService {
 
     /**
      * Find all patient
-     *
      * @return a list of patient
      */
     public List<Patient> getPatientList(){
@@ -34,8 +38,8 @@ public class PatientService {
 
     /**
      * Get a patient by his id
-     * @param id is the id of the patient
-     * @return the wanted patient
+     * @param id used to get the wanted patient
+     * @return the patient or an error if the id is not found
      */
     public Patient getPatientById(Long id){
         return patientRepository.findById(id)
@@ -60,7 +64,7 @@ public class PatientService {
 
     /**
      * Update a patient
-     * @param id is the id of the patient
+     * @param id is the id of the patient to update
      * @param patientDTO is the dto who contains the required information to update
      * @return the updated patient
      */
@@ -95,6 +99,11 @@ public class PatientService {
         return patient;
     }
 
+    /**
+     * Chech if the id exist
+     * @param id is the id to check
+     * @return true if the id exist or no if it doesn't
+     */
     public Boolean isIdExist(Long id) {
         return patientRepository.findById(id).isPresent();
     }

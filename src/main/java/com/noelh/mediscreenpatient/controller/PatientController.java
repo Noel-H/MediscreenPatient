@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
+/**
+ * Patient Controller
+ */
 @Slf4j
 @RestController
 @RequestMapping("/patient")
@@ -20,10 +23,18 @@ public class PatientController {
 
     private final PatientService patientService;
 
+    /**
+     * Patient controller constructor
+     * @param patientService used to perform operation
+     */
     public PatientController(PatientService patientService){
         this.patientService = patientService;
     }
 
+    /**
+     * Get a list of every patient
+     * @return a list of every patient
+     */
     @ApiOperation("Récupère une liste de tous les patients")
     @GetMapping("")
     public List<Patient> getPatientList(){
@@ -31,6 +42,11 @@ public class PatientController {
         return patientService.getPatientList();
     }
 
+    /**
+     * Check is a patient exist by an id
+     * @param id is the id used to check
+     * @return true if the patient exist or no if he doesn't
+     */
     @ApiOperation("Vérifie l'existence d'un patient grâce à un id donné")
     @GetMapping("/check/{id}")
     public Boolean checkIfPatientIdExist(@PathVariable("id") Long id){
@@ -38,6 +54,11 @@ public class PatientController {
         return patientService.isIdExist(id);
     }
 
+    /**
+     * Get a patient by an id
+     * @param id used to get the wanted patient
+     * @return the patient
+     */
     @ApiOperation("Récupère un patient grâce à un id donné")
     @GetMapping("/{id}")
     public ResponseEntity<Patient> getPatientById(@PathVariable("id") Long id){
@@ -50,6 +71,11 @@ public class PatientController {
         }
     }
 
+    /**
+     * Add a new patient
+     * @param patientDTO used to save the new patient
+     * @return the new patient
+     */
     @ApiOperation("Ajoute un nouveau patient")
     @PostMapping("")
     public ResponseEntity<Patient> postPatient(@RequestBody PatientDTO patientDTO){
@@ -57,6 +83,12 @@ public class PatientController {
         return ResponseEntity.ok(patientService.addPatient(patientDTO));
     }
 
+    /**
+     * Update a patient by an id
+     * @param id used to update the wanted patient
+     * @param patientDTO used to save the updated patient
+     * @return the updated patient
+     */
     @ApiOperation("Modifie un patient déjà existant grâce à un id donné")
     @PutMapping("/{id}")
     public ResponseEntity<Patient> putPatientById(@PathVariable("id") Long id,@RequestBody PatientDTO patientDTO){
@@ -69,6 +101,11 @@ public class PatientController {
         }
     }
 
+    /**
+     * Delete a patient by an id
+     * @param id used to delete the wanted patient
+     * @return the deleted patient
+     */
     @ApiOperation("Supprime un patient grâce à un id donné")
     @DeleteMapping("/{id}")
     public ResponseEntity<Patient> deletePatientById(@PathVariable("id") Long id){
